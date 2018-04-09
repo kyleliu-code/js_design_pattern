@@ -1,0 +1,41 @@
+ <!-- js 单例模式  -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="author" content="http://www.baidu.com">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>js单例模式</title>
+     <style>
+         div {
+             color: red;
+         }
+     </style>
+ </head>
+ <body>
+     <button id="bt">查看演示</button>
+     <script>
+         // 通过闭包来保存一个非全局变量
+         var createDiv = (function(){
+             var div;
+             return function () {
+                 if (!div) {
+                     div = document.createElement('div');
+                     div.innerHTML = '金迅教育';
+                     div.style.display ='none';
+                     document.body.appendChild(div);
+                 }
+                 return div;
+             }
+         }());
+         document.getElementById('bt').onclick = function () {
+             var odiv = createDiv();
+             odiv.style.display = 'block';
+         }
+     </script>
+     
+ </body>
+ </html>
+

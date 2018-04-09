@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js_singleton_pattern_edition02(improvement)</title>
+    <style>
+        div {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="login">login</button>
+    <script>
+        // 单例模式实现： 通过一个 标志来判定 实例是否只生成了一次
+        // 依旧是通过闭包保存一个 非全局变量 result 
+        var getSingle = function (fn) {
+            var result; // 这里用一个 flag 就可以了 ， 来标志是否是单例
+            return function () {
+                return result || (result = fn.apply(this, arguments))
+            };
+        }
+        // 生成 单例函数
+        var createDiv = getSingle(function (){
+            var div = document.createElement('div');
+            div.innerHTML = "我是登录悬浮框";
+            div.style.display = 'none';
+            document.body.appendChild(div);
+            return div;
+        });
+        
+        document.getElementById('login').onclick = function () {
+            var odiv = createDiv();
+            odiv.style.display = 'block';
+        }
+
+        // 将上述管理单例的逻辑抽离出来
+        // 创建实例对象的职业 和 管理单例职责 相互独立
+        var getSingle = function (fn) {
+            var result;
+            return function () {
+                return result || (result = fn.apply(this.arguments))
+            }
+        }
+    </script>
+</body>
+</html>
